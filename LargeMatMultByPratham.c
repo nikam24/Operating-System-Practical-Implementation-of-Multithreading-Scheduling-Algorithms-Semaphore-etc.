@@ -80,16 +80,37 @@
 	    execution_time=((double)(end-start))/CLOCKS_PER_SEC;
 	            printf("Execution  time of i,j,k : %f\n",execution_time);
 
+		for(int i=0;i<row1;i++){
+			free(ptr1[i]);
+			free(ptr2[i]);
+			free(ptr3[i]);
+		}
+
+		free(ptr1);
+		free(ptr2);
+		free(ptr3);
+
 		// Case 2 : ikj
+		ptr1 = (int **) malloc(sizeof(int *) * row1);  
+		ptr2 = (int **) malloc(sizeof(int *) * row2); 
+		ptr3 = (int **) malloc(sizeof(int *) * row1); 
+	 
+		for(i=0; i<row1; i++) 
+	 	ptr1[i] = (int *)malloc(sizeof(int) * col1); 
+		for(i=0; i<row2; i++)  
+	 	ptr2[i] = (int *)malloc(sizeof(int) * col2); 
+		for(i=0; i<row1; i++)  
+	 	ptr3[i] = (int *)malloc(sizeof(int) * col2); 
+
 		start=clock();
 
 		for(i=0; i < row1; i++) 
 		{ 
 			for(k=0; k<col2; k++)
 			{ 
-				ptr3[i][j] = 0; 
+				ptr3[i][k] = 0; 
 	 			    for(j=0; j < col1; j++)
-					ptr3[i][j] = ptr3[i][j] + ptr1[i][k] * ptr2[k][j]; 
+					ptr3[i][k] = ptr3[i][k] + ptr1[i][j] * ptr2[j][k]; 
 			} 
 		} 
 
@@ -98,8 +119,30 @@
 	    execution_time=((double)(end-start))/CLOCKS_PER_SEC;
 	            printf("Execution  time of i,k,j : %f\n",execution_time);
 
+		for(int i=0;i<row1;i++){
+			free(ptr1[i]);
+			free(ptr2[i]);
+			free(ptr3[i]);
+		}
+
+		free(ptr1);
+		free(ptr2);
+		free(ptr3);
+
 
 		// Case 3 : jik
+
+		ptr1 = (int **) malloc(sizeof(int *) * row1);  
+		ptr2 = (int **) malloc(sizeof(int *) * row2); 
+		ptr3 = (int **) malloc(sizeof(int *) * row1); 
+	 
+		for(i=0; i<row1; i++) 
+	 	ptr1[i] = (int *)malloc(sizeof(int) * col1); 
+		for(i=0; i<row2; i++)  
+	 	ptr2[i] = (int *)malloc(sizeof(int) * col2); 
+		for(i=0; i<row1; i++)  
+	 	ptr3[i] = (int *)malloc(sizeof(int) * col2); 
+
 		start=clock();
 
 		
@@ -108,9 +151,9 @@
 			
 			for(i=0; i < row1; i++)
 			{ 
-				ptr3[i][j] = 0; 
+				ptr3[j][i] = 0; 
 	 			    for(k=0; k<col2; k++)
-					ptr3[i][j] = ptr3[i][j] + ptr1[i][k] * ptr2[k][j]; 
+					ptr3[j][i] = ptr3[j][i] + ptr1[j][k] * ptr2[k][i]; 
 			} 
 		} 
 
@@ -119,7 +162,29 @@
 	    execution_time=((double)(end-start))/CLOCKS_PER_SEC;
 	            printf("Execution  time of j,i,k : %f\n",execution_time);
 
+		for(int i=0;i<row1;i++){
+			free(ptr1[i]);
+			free(ptr2[i]);
+			free(ptr3[i]);
+		}
+
+		free(ptr1);
+		free(ptr2);
+		free(ptr3);
+
 		// Case 4 : jki 
+
+		ptr1 = (int **) malloc(sizeof(int *) * row1);  
+		ptr2 = (int **) malloc(sizeof(int *) * row2); 
+		ptr3 = (int **) malloc(sizeof(int *) * row1); 
+	 
+		for(i=0; i<row1; i++) 
+	 	ptr1[i] = (int *)malloc(sizeof(int) * col1); 
+		for(i=0; i<row2; i++)  
+	 	ptr2[i] = (int *)malloc(sizeof(int) * col2); 
+		for(i=0; i<row1; i++)  
+	 	ptr3[i] = (int *)malloc(sizeof(int) * col2); 
+
 		start=clock();
 
 		
@@ -128,9 +193,9 @@
 			
 			for(k=0; k<col2; k++)
 			{ 
-				ptr3[i][j] = 0; 
+				ptr3[j][k] = 0; 
 	 			    for(i=0; i < row1; i++)
-					ptr3[i][j] = ptr3[i][j] + ptr1[i][k] * ptr2[k][j]; 
+					ptr3[j][k] = ptr3[j][k] + ptr1[j][i] * ptr2[i][k]; 
 			} 
 		} 
 
@@ -139,7 +204,29 @@
 	    execution_time=((double)(end-start))/CLOCKS_PER_SEC;
 	            printf("Execution  time of j,k,i : %f\n",execution_time);
 
+		for(int i=0;i<row1;i++){
+			free(ptr1[i]);
+			free(ptr2[i]);
+			free(ptr3[i]);
+		}
+
+		free(ptr1);
+		free(ptr2);
+		free(ptr3);
+
 		// Case 5 : kij 
+
+		ptr1 = (int **) malloc(sizeof(int *) * row1);  
+	ptr2 = (int **) malloc(sizeof(int *) * row2); 
+	ptr3 = (int **) malloc(sizeof(int *) * row1); 
+	 
+		for(i=0; i<row1; i++) 
+	 	ptr1[i] = (int *)malloc(sizeof(int) * col1); 
+		for(i=0; i<row2; i++)  
+	 	ptr2[i] = (int *)malloc(sizeof(int) * col2); 
+		for(i=0; i<row1; i++)  
+	 	ptr3[i] = (int *)malloc(sizeof(int) * col2); 
+
 		start=clock();
 
 		
@@ -149,9 +236,9 @@
 			
 			for(i=0; i < row1; i++)
 			{ 
-				ptr3[i][j] = 0; 
+				ptr3[k][i] = 0; 
 	 			    for(j=0; j < col1; j++)
-					ptr3[i][j] = ptr3[i][j] + ptr1[i][k] * ptr2[k][j]; 
+					ptr3[k][i] = ptr3[k][i] + ptr1[k][j] * ptr2[j][k]; 
 			} 
 		} 
 
@@ -160,8 +247,30 @@
 	    execution_time=((double)(end-start))/CLOCKS_PER_SEC;
 	            printf("Execution  time of k,i,j : %f\n",execution_time);
 
+		for(int i=0;i<row1;i++){
+			free(ptr1[i]);
+			free(ptr2[i]);
+			free(ptr3[i]);
+		}
+
+		free(ptr1);
+		free(ptr2);
+		free(ptr3);
+
 	    
-		// Case 6 : kji 
+		// Case 6 : kji
+		
+		ptr1 = (int **) malloc(sizeof(int *) * row1);  
+	ptr2 = (int **) malloc(sizeof(int *) * row2); 
+	ptr3 = (int **) malloc(sizeof(int *) * row1); 
+	 
+		for(i=0; i<row1; i++) 
+	 	ptr1[i] = (int *)malloc(sizeof(int) * col1); 
+		for(i=0; i<row2; i++)  
+	 	ptr2[i] = (int *)malloc(sizeof(int) * col2); 
+		for(i=0; i<row1; i++)  
+	 	ptr3[i] = (int *)malloc(sizeof(int) * col2); 
+
 		start=clock();
 
 		
@@ -172,16 +281,26 @@
 			
 			for(j=0; j < col1; j++)
 			{ 
-				ptr3[i][j] = 0; 
+				ptr3[k][j] = 0; 
 	 			    for(i=0; i < row1; i++)
-					ptr3[i][j] = ptr3[i][j] + ptr1[i][k] * ptr2[k][j]; 
+					ptr3[k][j] = ptr3[k][j] + ptr1[k][i] * ptr2[i][j]; 
 			} 
 		} 
 
-		printf("Matrix Multiplication done successfully.\n");
+		printf("Matrix Multiplication done successfully.\n\n");
 		end=clock();
 	    execution_time=((double)(end-start))/CLOCKS_PER_SEC;
 	            printf("Execution  time of k,i,j : %f\n",execution_time);
+
+		for(int i=0;i<row1;i++){
+			free(ptr1[i]);
+			free(ptr2[i]);
+			free(ptr3[i]);
+		}
+
+		free(ptr1);
+		free(ptr2);
+		free(ptr3);
 		
 
 		// printf("\n\nResultant matrix :");  
