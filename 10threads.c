@@ -1,4 +1,4 @@
-// Multhithreaded program to increment global variable value by 10 different variables
+// Multhithreaded program to increment global variable value by 10 different threads
 // I prefer not to go gentle ~Pratham Nikam
 #include <stdio.h>
 #include <stdlib.h>
