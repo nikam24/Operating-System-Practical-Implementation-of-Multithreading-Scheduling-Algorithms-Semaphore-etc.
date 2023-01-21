@@ -23,7 +23,7 @@ int row = 0;
 
 int main()
 {
-	int r1,c1,r2,c2;
+	int r1 = 0,c1 = 0,r2 = 0,c2 = 0;
 	printf("Enter no. of row in matrix A : ");
 	scanf("%d",&r1);
 	printf("Enter no. of col in matrix A : ");
@@ -37,17 +37,17 @@ int main()
 		printf("Matrix multiplication of A and B is not possible\n");
 	}
 	
-	int** A = (int**)malloc(sizeof(r1*(int*)));
+	int** A = malloc(sizeof(r1*(int*)));
 	
-	for(int i=0;i<r1;i++) A[i] = (int*)malloc(sizeof(c1*(int)));
+	for(int i=0;i<r1;i++) A[i] = malloc(sizeof(c1*(int)));
 	
-	int** B = (int**)malloc(sizeof(r2*(int*)));
+	int** B = malloc(sizeof(r2*(int*)));
 	
-	for(int i=0;i<r2;i++) B[i] = (int*)malloc(sizeof(c2*(int)));
+	for(int i=0;i<r2;i++) B[i] = malloc(sizeof(c2*(int)));
 	
-	int** C = (int**)malloc(sizeof(r1*(int*)));
+	int** C = malloc(sizeof(r1*(int*)));
 	
-	for(int i=0;i<r1;i++) A[i] = (int*)malloc(sizeof(c2*(int)));
+	for(int i=0;i<r1;i++) A[i] = malloc(sizeof(c2*(int)));
 	
 	
 	for(int i=0;i<r1;i++){
