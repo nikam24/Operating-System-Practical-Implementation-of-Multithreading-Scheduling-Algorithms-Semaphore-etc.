@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
-pthread_t thread_id[3];
-int row = 0;
+//pthread_t thread_id[3];
+//int row = 0;
 
 //function that is executed as by thread
 //void *myThreadFun(void *vargp)
@@ -35,19 +35,20 @@ int main()
 	
 	if(c1 != r2){
 		printf("Matrix multiplication of A and B is not possible\n");
+		return 0;
 	}
 	
-	int** A = malloc(sizeof(r1*(int*)));
+	int** A = malloc(r1*sizeof(int*));
 	
-	for(int i=0;i<r1;i++) A[i] = malloc(sizeof(c1*(int)));
+	for(int i=0;i<r1;i++) A[i] = (int*)malloc(c1*sizeof(int));
 	
-	int** B = malloc(sizeof(r2*(int*)));
+	int** B = malloc(r2*sizeof(int*));
 	
-	for(int i=0;i<r2;i++) B[i] = malloc(sizeof(c2*(int)));
+	for(int i=0;i<r2;i++) B[i] = (int*)malloc(c2*sizeof(int));
 	
-	int** C = malloc(sizeof(r1*(int*)));
+	int** C = malloc(r1*sizeof(int*));
 	
-	for(int i=0;i<r1;i++) A[i] = malloc(sizeof(c2*(int)));
+	for(int i=0;i<r1;i++) A[i] = (int*)malloc(c2*sizeof(int));
 	
 	
 	for(int i=0;i<r1;i++){
@@ -63,16 +64,16 @@ int main()
 	}
 	
 	for(int i=0;i<r1;i++){
-		for(int j=0;j<c2;j++){
-			for(int k=0;k<c1;k++){
+		for(int j=0;j<c1;j++){
+			for(int k=0;k<r2;k++){
 				C[i][j] += A[i][k]*B[k][j];
 			}
 		}
 	}
 	
 	for(int i=0;i<r1;i++){
-		for(int j=0;j<c2;j++){
-			for(int k=0;k<c1;k++){
+		for(int j=0;j<c1;j++){
+			for(int k=0;k<r2;k++){
 				printf("%d ",C[i][j]);
 			}
 			printf("\n");
@@ -85,6 +86,6 @@ int main()
 	//	pthread_join(thread_id[i], NULL);
 	//}
 	//printf("After Thread\n");
-	exit(0);
+	
+	return 0;
 }
-
