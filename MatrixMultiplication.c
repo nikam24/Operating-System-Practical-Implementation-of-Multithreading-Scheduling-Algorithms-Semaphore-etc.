@@ -5,7 +5,11 @@
 #include <unistd.h>
 #include <pthread.h>
 //pthread_t thread_id[3];
-//int row = 0;
+int row = 0;
+int r1 = 0,c1 = 0,r2 = 0,c2 = 0;
+int** A;
+int** B;
+int** C;
 
 //function that is executed as by thread
 //void *myThreadFun(void *vargp)
@@ -21,9 +25,22 @@
 //	return NULL;
 //}
 
+void* mult(void* argv){
+	int i = row++;
+	
+	for(int j=0;j<c1;j++){
+		for(int k=0;k<r2;k++){
+			C[i][j] += A[i][k]*B[k][j];
+		}
+	}
+}
+
+
+
 int main()
 {
-	int r1 = 0,c1 = 0,r2 = 0,c2 = 0;
+	pthread_t p[4];	
+	
 	printf("Enter no. of row in matrix A : ");
 	scanf("%d",&r1);
 	printf("Enter no. of col in matrix A : ");
@@ -38,17 +55,17 @@ int main()
 		return 0;
 	}
 	
-	int** A = malloc(r1*sizeof(int*));
+	A = malloc(r1*sizeof(int*));
 	
 	for(int i=0;i<r1;i++) A[i] = (int*)malloc(c1*sizeof(int));
 	
-	int** B = malloc(r2*sizeof(int*));
+	B = malloc(r2*sizeof(int*));
 	
 	for(int i=0;i<r2;i++) B[i] = (int*)malloc(c2*sizeof(int));
 	
-	int** C = malloc(r1*sizeof(int*));
+	C = malloc(r1*sizeof(int*));
 	
-	for(int i=0;i<r1;i++) A[i] = (int*)malloc(c2*sizeof(int));
+	for(int i=0;i<r1;i++) C[i] = (int*)malloc(c2*sizeof(int));
 	
 	
 	for(int i=0;i<r1;i++){
@@ -63,6 +80,13 @@ int main()
 		}
 	}
 	
+	clock_t start,end;
+	float execution_time;
+	
+	// Matrix Multiplication without threading
+	
+	start = clock();
+	
 	for(int i=0;i<r1;i++){
 		for(int j=0;j<c1;j++){
 			for(int k=0;k<r2;k++){
@@ -71,14 +95,41 @@ int main()
 		}
 	}
 	
+	end = clock();
+	
+	execution_time = ((double)(end-start))/CLOCKS_PER_SEC;
+	printf("Execution time of without threading : %f\n",execution_time);
+	
+	
+	start = clock();
+	
 	for(int i=0;i<r1;i++){
-		for(int j=0;j<c1;j++){
-			for(int k=0;k<r2;k++){
-				printf("%d ",C[i][j]);
-			}
-			printf("\n");
-		}
-	}	
+		pthread_create(&p[i],NULL,mult,NULL);
+	}
+	
+	for(int i=0;i<r1;i++){
+		pthread_join(p[i],NULL);
+	}
+	
+	//for(int i=0;i<r1;i++){
+	//	for(int j=0;j<c1;j++){
+	//		for(int k=0;k<r2;k++){
+	//			C[i][j] += A[i][k]*B[k][j];
+	//		}
+	//	}
+	//}
+	
+	end = clock();
+	
+	execution_time = ((double)(end-start))/CLOCKS_PER_SEC;
+	printf("Execution time with threading : %f\n",execution_time);
+	
+	//for(int i=0;i<r1;i++){
+	//	for(int j=0;j<c1;j++){
+	//		printf("%d ",C[i][j]);
+	//	}
+	//	printf("\n");
+	//}	
 
 	//printf("Before Thread\n");
 	//for(int i=0;i<10;i++){
