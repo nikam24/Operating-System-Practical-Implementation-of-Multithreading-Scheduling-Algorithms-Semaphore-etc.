@@ -39,7 +39,6 @@ void* mult(void* argv){
 
 int main()
 {
-	pthread_t p[4];	
 	
 	printf("Enter no. of row in matrix A : ");
 	scanf("%d",&r1);
@@ -50,6 +49,8 @@ int main()
 	printf("Enter no. of col in matrix B : ");
 	scanf("%d",&c2);
 	
+	pthread_t p[r1];	
+
 	if(c1 != r2){
 		printf("Matrix multiplication of A and B is not possible\n");
 		return 0;
@@ -123,6 +124,15 @@ int main()
 	
 	execution_time = ((double)(end-start))/CLOCKS_PER_SEC;
 	printf("Execution time with threading : %f\n",execution_time);
+	
+	for(int i=0;i<r1;i++) free(A[i]);
+	free(A);
+	
+	for(int i=0;i<r2;i++) free(B[i]);
+	free(B);
+	
+	for(int i=0;i<r1;i++) free(C[i]);
+	free(C);
 	
 	//for(int i=0;i<r1;i++){
 	//	for(int j=0;j<c1;j++){
